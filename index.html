@@ -3,15 +3,33 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的测试页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Testing Page</title>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function openDeepLink() {
+            const deepLink = getQueryParam("redirect_uri"); // Extract "redirect_uri" from URL
+            if (deepLink) {
+                window.location.href = decodeURIComponent(deepLink); // Redirect dynamically
+            } else {
+                alert("No redirect_uri found!");
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Hello Android!</h1>
-    <p>当前时间：<span id="time"></span></p>
+    <p>Current Time：<span id="time"></span></p>
     <script>
         setInterval(function(){
             document.getElementById('time').textContent = new Date().toLocaleString();
         }, 1000);
     </script>
+    <p>Click the button below to open the deep link.</p>
+    <button onclick="openDeepLink()">Go to Special Page</button>
 </body>
 </html>
